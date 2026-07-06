@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visit Loudoun — Partner Portal</title>
+  <meta name="description" content="Why and how to market with Visit Loudoun. See the reach you tap into when you tag us, and grab the tools to do it." />
+
+  <!-- Fonts: Lora (brand serif) + Inter (close stand-in for Acumin Pro; brand fallback is Arial) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js for the interactive dashboard charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- =========================================================== HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#" data-go="dashboard">
+        <!-- Logo: assets/logo/visit-loudoun-logo.png (already includes "Partner Portal").
+             If the file is missing, the "VL" text lockup below shows instead. -->
+        <img class="brand-logo" src="assets/logo/visit-loudoun-logo.png"
+             alt="Visit Loudoun — DC's Wine Country · Partner Portal" style="display:none"
+             onload="this.style.display='block'; document.getElementById('brandFallback').style.display='none';"
+             onerror="this.remove()">
+        <span class="brand-fallback" id="brandFallback">
+          <span class="logo-slot">VL</span>
+          <span class="brand-text">
+            <span class="b1">Visit Loudoun</span>
+            <span class="b2">Partner Portal</span>
+          </span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E2322" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <nav class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+        <button class="tab-btn" data-tab="why">Why It Matters</button>
+        <button class="tab-btn" data-tab="how">How to Market With Us</button>
+        <button class="tab-btn" data-tab="toolkit">Partner Toolkit</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- =========================================================== DASHBOARD -->
+  <section class="panel active" id="panel-dashboard">
+    <div class="hero">
+      <div class="wrap">
+        <span class="hero-badge"><span class="dot"></span><span id="heroBadge">Loading reporting window…</span></span>
+        <h1>Your audience is <em>already here.</em> Tag in, and we grow it together.</h1>
+        <p class="sub">When you tag Visit Loudoun, your moment reaches our combined audience across social, web and search — at no extra cost to you. Here is the reach you are tapping into right now.</p>
+        <div class="hero-cta">
+          <a class="btn btn-gold" data-go="how">See how to tag us</a>
+          <a class="btn btn-ghost" data-go="why">Why it matters</a>
+          <a class="btn btn-ghost" href="https://www.visitloudoun.org" target="_blank" rel="noopener">Explore VisitLoudoun.org ↗</a>
+        </div>
+
+        <!-- reach groups (Social Reach / Website Reach) injected here -->
+        <div id="reachGroups"></div>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The numbers</span>
+        <h2>A live look at our reach</h2>
+        <p class="lead">This dashboard refreshes every quarter. The story it tells is simple: there is a large, engaged audience following Loudoun, and partner content is one of the best ways to feed it.</p>
+        <span class="update-line"><span class="dot"></span><span id="updateLine"></span></span>
+      </div>
+
+      <div class="grid g2 reveal">
+        <div class="chart-card">
+          <h3>Follower growth by platform</h3>
+          <p class="chart-sub">Followers at the start vs. the end of the reporting window.</p>
+          <div class="chart-holder"><canvas id="growthChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Where website visitors come from</h3>
+          <p class="chart-sub">Share of VisitLoudoun.org traffic by channel (Mar–May 2026).</p>
+          <div class="chart-holder"><canvas id="channelChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="insight reveal" style="margin-top:20px" id="socialReferralInsight"></div>
+    </div>
+
+    <!-- platform performance / top posts -->
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Platform performance</span>
+        <h2>Top posts, by channel</h2>
+        <p class="lead">The content that traveled furthest this quarter — and the kind we love to amplify for partners.</p>
+      </div>
+      <div class="switcher reveal" id="platformSwitch"></div>
+      <div class="posts-grid reveal" id="topPosts"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================== WHY IT MATTERS -->
+  <section class="panel" id="panel-why">
+    <div class="wrap section">
+      <div class="sec-head reveal">
+        <span class="eyebrow">What we do matters</span>
+        <h2>We are the megaphone for the whole destination</h2>
+        <p class="lead">Visit Loudoun markets Loudoun as a destination across social media, the web and search — reaching travelers before, during and after their trip. Every time you tag us, your business rides that reach. Here is what that means for you.</p>
+      </div>
+
+      <div class="grid g2 reveal" id="benefitGrid"></div>
+    </div>
+
+    <!-- new-audience reach: the core argument -->
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The real opportunity</span>
+        <h2>Your content reaches people who don't follow you — yet</h2>
+        <p class="lead" id="newAudienceIntro"></p>
+      </div>
+      <div class="grid g3 reveal" id="newAudienceCards"></div>
+      <div class="insight reveal" style="margin-top:20px" id="newAudienceNote"></div>
+    </div>
+
+    <!-- case study -->
+    <div class="wrap section tight">
+      <div class="case reveal" id="caseStudy"></div>
+    </div>
+
+    <!-- audience -->
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Who you reach</span>
+        <h2>An engaged, ready-to-plan audience</h2>
+        <p class="lead">These are the people following Loudoun on Instagram — the same people deciding where to eat, stay and spend their weekend.</p>
+      </div>
+      <div class="grid g2 reveal">
+        <div class="card">
+          <p class="mini-label">Age of our audience</p>
+          <div id="ageBars"></div>
+        </div>
+        <div class="card">
+          <p class="mini-label">At a glance</p>
+          <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:16px" id="audiencePills"></div>
+          <p style="color:var(--ink-soft); margin:0" id="audienceNote"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- the Loudoun visitor (2026 Visitor Profile study) -->
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Who you're reaching</span>
+        <h2>The Loudoun visitor: affluent, loyal, ready to spend</h2>
+        <p class="lead" id="visitorIntro"></p>
+      </div>
+      <div class="stat-grid light reveal" id="visitorCards"></div>
+      <p class="source-note reveal" id="visitorSource"></p>
+    </div>
+
+    <!-- search + web footprint -->
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Where your content travels</span>
+        <h2>Beyond social: our search footprint</h2>
+        <p class="lead">Loudoun does not just live on social. The destination shows up across Google search and AI answers millions of times a month — and partner content strengthens the whole picture.</p>
+      </div>
+      <div class="stat-grid light reveal" id="searchCards"></div>
+
+      <div class="grid g2 reveal" style="margin-top:22px">
+        <div class="chart-card">
+          <h3>Website performance</h3>
+          <p class="chart-sub">VisitLoudoun.org, March–May 2026 (GA4).</p>
+          <div class="stat-grid light" id="webCards" style="margin-top:0"></div>
+        </div>
+        <div class="chart-card">
+          <h3>Top visitor states</h3>
+          <p class="chart-sub">Where website visitors are based.</p>
+          <div class="chart-holder"><canvas id="statesChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== HOW TO MARKET -->
+  <section class="panel" id="panel-how">
+    <div class="wrap section">
+      <div class="sec-head reveal">
+        <span class="eyebrow">How to market with us</span>
+        <h2>Three minutes is all it takes</h2>
+        <p class="lead">You are already creating great content. A few small habits turn it into shared reach for your business and for Loudoun.</p>
+      </div>
+
+      <!-- the #1 rule -->
+      <div class="rule-callout reveal">
+        <span class="rc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </span>
+        <div>
+          <h3>The one rule that matters most</h3>
+          <p>Tag <strong>@visitloudoun</strong> inside the post itself — not just in the caption. Tagging the post (the photo or video) is what lets us find it, reshare it and put it in front of our full audience.</p>
+        </div>
+      </div>
+
+      <div class="steps reveal">
+        <div class="step">
+          <div><h4>Tag us in the post</h4><p>Add @visitloudoun as a tag on the image or video, then mention us in the caption too. Tagging the post is the part that unlocks resharing.</p></div>
+        </div>
+        <div class="step">
+          <div><h4>Add your location</h4><p>Tag your business location so the post is searchable and so visitors know exactly where the moment happened.</p></div>
+        </div>
+        <div class="step">
+          <div><h4>Give us a heads-up on big news</h4><p>New release, special event, seasonal opening? Email us early so we can plan to amplify it while it is timely.</p></div>
+        </div>
+        <div class="step">
+          <div><h4>We repost — and put you in every follower's feed</h4><p>When we spot your tagged content, we can repost it to our channels. Because we reposted it, your reel or post shows up in the feeds of everyone who follows Visit Loudoun — putting your business in front of our entire audience, at no cost to you.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- submission channels -->
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Share with us</span>
+        <h2>Sending us content & updates</h2>
+        <p class="lead">Different kinds of updates have different homes. Here is where each one goes.</p>
+      </div>
+
+      <div class="grid g3 reveal">
+        <div class="channel-card">
+          <span class="ci"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></span>
+          <h3>Business info & updates</h3>
+          <p>Changes to your story, news about your business or anything text-based — send it our way by email and we will route it to the right place.</p>
+          <a class="btn btn-merlot" id="emailInfoBtn" href="#">Email an update</a>
+        </div>
+
+        <div class="channel-card">
+          <span class="ci"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
+          <h3>Photos & video</h3>
+          <p>Have great imagery you would like us to use? Email us to share your photo library and rights to use it. Tagging us in your posts is the fastest way to get content in front of our team.</p>
+          <a class="btn btn-merlot" id="emailPhotoBtn" href="#">Share your photos</a>
+        </div>
+
+        <div class="channel-card soon">
+          <span class="soon-badge">Coming soon</span>
+          <span class="ci"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="20"/></svg></span>
+          <h3>Listings & events — Extranet</h3>
+          <p>Soon you will be able to submit and update your own listings, events and details through our partner Extranet. We are putting the guide together now — details to come right here.</p>
+          <a class="btn btn-outline" style="pointer-events:none; opacity:.6">Guide in progress</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== TOOLKIT -->
+  <section class="panel" id="panel-toolkit">
+    <div class="wrap section">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Partner toolkit</span>
+        <h2>Everything you need to tag and share</h2>
+        <p class="lead">Copy our handles, follow the quick do's and don'ts, and grab a few ideas for content we love to reshare.</p>
+      </div>
+
+      <div id="toolkitPdfBanner" class="reveal"></div>
+
+      <div class="grid g2 reveal">
+        <div>
+          <p class="mini-label">Tag us on every platform</p>
+          <div class="handle-list" id="handleList"></div>
+        </div>
+        <div>
+          <p class="mini-label">For tourism partners</p>
+          <div class="handle-list" id="industryList"></div>
+          <div class="insight" style="margin-top:16px">
+            <p><strong>Best format right now:</strong> short video. Reels are our top-performing format on Facebook, and short video is driving fast growth on TikTok as people search for things to do.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap section tight">
+      <div class="dd-grid reveal">
+        <div class="dd-card do">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#325A1E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Do</h3>
+          <ul id="dosList"></ul>
+        </div>
+        <div class="dd-card dont">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AA2212" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Don't</h3>
+          <ul id="dontsList"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Content ideas</span>
+        <h2>What we love to reshare</h2>
+        <p class="lead">Stuck on what to post? Any of these, tagged to us, gives our team something to work with.</p>
+      </div>
+      <div class="grid g3 reveal" id="ideaGrid"></div>
+    </div>
+
+    <div class="wrap section tight">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Talk to us</span>
+        <h2>Your Visit Loudoun contacts</h2>
+      </div>
+      <div class="grid g2 reveal" id="contactGrid"></div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- =========================================================== FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <!-- Optional: drop "visit-loudoun-logo-white.png" (white knockout) into assets/logo/ for the footer. -->
+        <img class="foot-logo" src="assets/logo/visit-loudoun-logo-white.png" alt="Visit Loudoun"
+             style="display:none" onload="this.style.display='block'" onerror="this.remove()">
+        <div class="foot-handles" id="footHandles"></div>
+        <p class="reg" style="margin-top:14px">Loudoun is DC's Wine Country® · <a href="https://www.visitloudoun.org" target="_blank" rel="noopener">VisitLoudoun.org</a></p>
+      </div>
+      <div class="reg" id="footUpdate"></div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
